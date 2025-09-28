@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ExchangeRateService } from '../../services/exchange-rate';
+import { CurrencyConverter } from '../currency-converter/currency-converter';
 import { Subscription } from 'rxjs';
 
 interface SummaryCard {
@@ -15,7 +16,7 @@ interface SummaryCard {
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, CurrencyConverter],
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.scss'],
 })
@@ -67,7 +68,6 @@ export class Dashboard implements OnInit, OnDestroy {
 
   private loadExchangeRates(): void {
     const ratesSub = this.exchangeRateService.getRates('USD').subscribe((rates) => {
-
       const eurRate = rates.find((r) => r.currency === 'EUR');
       if (eurRate) {
         this.summaryCards[1] = {
@@ -80,7 +80,6 @@ export class Dashboard implements OnInit, OnDestroy {
         };
       }
 
-      // Update BRL card
       const brlRate = rates.find((r) => r.currency === 'BRL');
       if (brlRate) {
         this.summaryCards[2] = {

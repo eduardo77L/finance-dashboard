@@ -1,1 +1,59 @@
-<p>currency-converter works!</p>
+<div class="converter-container">
+  <h3>Currency Converter</h3>
+  
+  <div class="converter-form">
+    <!-- Amount Input -->
+    <div class="input-group">
+      <label>Amount</label>
+      <input 
+        type="number" 
+        [(ngModel)]="amount" 
+        (input)="convert()"
+        placeholder="Enter amount"
+        class="amount-input"
+      >
+    </div>
+
+    <!-- From Currency -->
+    <div class="currency-group">
+      <label>From</label>
+      <select [(ngModel)]="fromCurrency" (change)="convert()" class="currency-select">
+        <option *ngFor="let currency of currencies" [value]="currency.code">
+          {{currency.flag}} {{currency.code}} - {{currency.name}}
+        </option>
+      </select>
+    </div>
+
+    <!-- Swap Button -->
+    <div class="swap-container">
+      <button (click)="swapCurrencies()" class="swap-button" title="Swap currencies">
+        ⇄
+      </button>
+    </div>
+
+    <!-- To Currency -->
+    <div class="currency-group">
+      <label>To</label>
+      <select [(ngModel)]="toCurrency" (change)="convert()" class="currency-select">
+        <option *ngFor="let currency of currencies" [value]="currency.code">
+          {{currency.flag}} {{currency.code}} - {{currency.name}}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Result -->
+  <div class="result-container">
+    <div *ngIf="isLoading" class="loading">
+      Loading exchange rates...
+    </div>
+    <div *ngIf="!isLoading" class="result">
+      <div class="conversion-text">
+        {{amount}} {{fromCurrency}} = 
+      </div>
+      <div class="converted-amount">
+        {{convertedAmount | number:'1.2-4'}} {{toCurrency}}
+      </div>
+    </div>
+  </div>
+</div>
