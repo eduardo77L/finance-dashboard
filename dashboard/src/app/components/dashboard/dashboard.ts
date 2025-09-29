@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ExchangeRateService } from '../../services/exchange-rate';
 import { CurrencyConverter } from '../currency-converter/currency-converter';
 import { Subscription } from 'rxjs';
+import { CurrencyChart } from '../currency-chart/currency-chart';
 
 interface SummaryCard {
   title: string;
@@ -16,7 +17,7 @@ interface SummaryCard {
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, CurrencyConverter],
+  imports: [CommonModule, CurrencyConverter, CurrencyChart],
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.scss'],
 })
